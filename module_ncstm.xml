@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<project name="module_ncstm" default="compile.module.ncstm">
+  <dirname property="module.ncstm.basedir" file="${ant.file.module_ncstm}"/>
+  
+  <property name="module.jdk.home.ncstm" value="${project.jdk.home}"/>
+  <property name="module.jdk.classpath.ncstm" value="${project.jdk.classpath}"/>
+  
+  <property name="compiler.args.ncstm" value="${compiler.args}"/>
+  
+  <property name="ncstm.output.dir" value="${module.ncstm.basedir}/build/classes"/>
+  
+  <path id="ncstm.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="ncstm.module.classpath">
+    <path refid="${module.jdk.classpath.ncstm}"/>
+    <pathelement location="${common-base.output.dir}"/>
+    <pathelement location="${logging-log4j-1.2.9.output.dir}"/>
+    <pathelement location="${module.ncstm.basedir}/../../third-party/logging-log4j-1.2.9/log4j-1.2.9.jar"/>
+    <pathelement location="${module.ncstm.basedir}/../../cmf/common-base/lib/junit.jar"/>
+    <pathelement location="${module.ncstm.basedir}/../../cmf/common-base/lib/or124.jar"/>
+    <pathelement location="${module.ncstm.basedir}/../../cmf/common-base/lib/jxl.jar"/>
+    <pathelement location="${module.ncstm.basedir}/../../cmf/common-base/lib/xml4j.jar"/>
+    <pathelement location="${module.ncstm.basedir}/../../cmf/common-base/lib/mysql-connector-java-3.0.10-stable-bin.jar"/>
+    <pathelement location="${module.ncstm.basedir}/../../cmf/common-base/lib/dx.jar"/>
+    <pathelement location="${module.ncstm.basedir}/../../cmf/common-base/lib/jds.jar"/>
+    <pathelement location="${module.ncstm.basedir}/../../cmf/common-base/lib/dxml.jar"/>
+    <pathelement location="${module.ncstm.basedir}/../../sawdust/core/util/release/jar/sawdust-util-1.0.jar"/>
+    <pathelement location="${module.ncstm.basedir}/lib/fji.jar"/>
+    <pathelement location="${module.ncstm.basedir}/lib/sawdust.jar"/>
+    <pathelement location="${module.ncstm.basedir}/lib/TranscadMatrix.jar"/>
+    <pathelement location="${processFAF.output.dir}"/>
+    <pathelement location="${neldt.output.dir}"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.ncstm"/>
+  
+  <patternset id="excluded.from.compilation.ncstm">
+    <patternset refid="excluded.from.module.ncstm"/>
+    <patternset refid="compiler.excluded"/>
+  </patternset>
+  
+  <path id="ncstm.module.sourcepath">
+    <dirset dir="${module.ncstm.basedir}">
+      <include name="src/java"/>
+    </dirset>
+  </path>
+
+  <target name="compile.module.ncstm" depends="compile.module.common-base" description="compile module ncstm classes">
+    <mkdir dir="${ncstm.output.dir}"/>
+    <javac destdir="${ncstm.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memoryMaximumSize="${compiler.max.memory}" fork="true" executable="${module.jdk.home.ncstm}/bin/javac">
+      <compilerarg line="${compiler.args.ncstm}"/>
+      <bootclasspath refid="ncstm.module.bootclasspath"/>
+      <classpath refid="ncstm.module.classpath"/>
+      <src refid="ncstm.module.sourcepath"/>
+      <patternset refid="excluded.from.compilation.ncstm"/>
+    </javac>
+    <copy todir="${ncstm.output.dir}">
+      <fileset dir="${module.ncstm.basedir}/src/java">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+        <patternset refid="excluded.from.compilation.ncstm"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="clean.module.ncstm" description="cleanup module">
+    <delete dir="${ncstm.output.dir}"/>
+  </target>
+</project>
