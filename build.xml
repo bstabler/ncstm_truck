@@ -64,7 +64,7 @@
   <target name="all" depends="init, clean, compile, makejar, release" description="clean, build all source and make jar file"/>
 
   <!-- Release directory is in the current directory -->
-  <property name="jar.dir" value="${basedir}/../${ant.project.name}/release"/>
+  <property name="jar.dir" value="release"/>
 
   <!-- Create a Jar file with all zip/jar files unpacked -->
 	  <target name="makejar" depends="compile">
@@ -78,9 +78,9 @@
 	  </target>
 
     <target name="release" depends="makejar">
-		<copy file="lib/common-base.jar" todir="${release.dir}"/>
-		<copy file="lib/log4j-1.2.9.jar" todir="${release.dir}"/>
-		<copy file="lib/transcadMatrix.jar" todir="${release.dir}"/>
+		<copy file="lib/common-base.jar" todir="release/"/>
+		<copy file="lib/log4j-1.2.9.jar" todir="release/"/>
+		<copy file="lib/transcadMatrix.jar" todir="release/"/>
     </target>
 
 </project>
