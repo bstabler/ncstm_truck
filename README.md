@@ -16,7 +16,7 @@ for details.
 The source code can be compiled using any java compiler, though build scripts
 for [Apache Ant](http://ant.apache.org) are provided in the project. 
 
-  1. Install a java developer's kit (JDK) for Java 1.8+. 
+  1. Install a java developer's kit (JDK) for Java 1.8+ ([link to download](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html)). 
   Instructions to do this are available from [Oracle](https://docs.oracle.com/javase/8/docs/technotes/guides/install/install_overview.html).
   2. Set your `JAVA_HOME` system environment variable to point to the JDK you
   installed.
@@ -25,7 +25,7 @@ for [Apache Ant](http://ant.apache.org) are provided in the project.
   5. Clone this repository (`git clone https://github.com/pbsag/ncstm_truck`).
   6. Open a command window pointed at the cloned working copy.
   7. Run `ant all` to compile the module and create `ncstm.jar`, which
-  will be located in the `release/` directory.
+  will be located in the `release/` directory.  
   
 ``` bash  
 [ncstm_truck]$ ant all
