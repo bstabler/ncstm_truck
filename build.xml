@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<project name="ncstm" default="all">
+  
+  <property environment="env"/>
+  <property file="build.properties"/>
+
+  <!-- Uncomment the following property if no tests compilation is needed -->
+  <!-- 
+  <property name="skip.tests" value="true"/>
+   -->
+  
+  <!-- Compiler options -->
+  <property name="compiler.debug" value="on"/>
+  <property name="compiler.generate.no.warnings" value="off"/>
+  <property name="compiler.args" value=""/>
+  <property name="compiler.max.memory" value="256m"/>
+
+  <patternset id="compiler.excluded"/>
+  <patternset id="compiler.resources">
+    <include name="**/?*.properties"/>
+    <include name="**/?*.xml"/>
+    <include name="**/?*.gif"/>
+    <include name="**/?*.png"/>
+    <include name="**/?*.jpeg"/>
+    <include name="**/?*.jpg"/>
+    <include name="**/?*.html"/>
+    <include name="**/?*.dtd"/>
+    <include name="**/?*.tld"/>
+  </patternset>
+
+  <!-- JDK definitions -->
+  <property name="jdk.home" value="${env.JAVA_HOME}"/>
+
+  <path id="jdk.classpath">
+    <fileset dir="${jdk.home}">
+      <include name="*.jar"/>
+    </fileset>
+	<fileset dir="${basedir}">
+		<include name="**/lib/*.jar" />
+		<include name="**/lib/*.zip" />
+	</fileset>
+
+  </path>
+
+  <!-- project.jdk values used in module build files -->
+  <property name="project.jdk.home" value="${jdk.home}"/>
+  <property name="project.jdk.classpath" value="jdk.classpath"/>
+
+  
+
+  <!-- Import module build files -->
+  <import file="${basedir}/module_ncstm.xml" />
+
+
+    <!-- Perform build initialization in this target -->
+  <target name="init" description="Build initialization">
+    <echo message="***** JAVA_HOME=${jdk.home}"/>
+  </target>
+  
+  <target name="clean" depends="clean.module.ncstm" description="cleanup all"/>
+  
+  <target name="compile" depends="init, clean, compile.module.ncstm" description="build all source files"/>
+
+  <target name="all" depends="init, clean, compile, makejar, release" description="clean, build all source and make jar file"/>
+
+  <!-- Release directory is in the current directory -->
+  <property name="jar.dir" value="${basedir}/../${ant.project.name}/release"/>
+
+  <!-- Create a Jar file with all zip/jar files unpacked -->
+	  <target name="makejar" depends="compile">
+	    <tstamp/>
+	    <mkdir dir="${jar.dir}"/>
+	    <delete file="${jar.dir}/${ant.project.name}.jar"/>
+	    <jar destfile="${jar.dir}/${ant.project.name}.jar">
+	        <fileset dir="${basedir}/build/classes"> <include name="**/*.class"/> </fileset>
+	    	<zipgroupfileset dir="${basedir}/lib" includes="**/*.jar" />
+	    </jar>
+	  </target>
+
+    <target name="release" depends="makejar">
+		<copy file="lib/common-base.jar" todir="${release.dir}"/>
+		<copy file="lib/log4j-1.2.9.jar" todir="${release.dir}"/>
+		<copy file="lib/transcadMatrix.jar" todir="${release.dir}"/>
+    </target>
+
+</project>

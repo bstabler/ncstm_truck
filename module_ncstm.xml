@@ -15,23 +15,7 @@
   
   <path id="ncstm.module.classpath">
     <path refid="${module.jdk.classpath.ncstm}"/>
-    <pathelement location="${common-base.output.dir}"/>
-    <pathelement location="${logging-log4j-1.2.9.output.dir}"/>
-    <pathelement location="${module.ncstm.basedir}/../../third-party/logging-log4j-1.2.9/log4j-1.2.9.jar"/>
-    <pathelement location="${module.ncstm.basedir}/../../cmf/common-base/lib/junit.jar"/>
-    <pathelement location="${module.ncstm.basedir}/../../cmf/common-base/lib/or124.jar"/>
-    <pathelement location="${module.ncstm.basedir}/../../cmf/common-base/lib/jxl.jar"/>
-    <pathelement location="${module.ncstm.basedir}/../../cmf/common-base/lib/xml4j.jar"/>
-    <pathelement location="${module.ncstm.basedir}/../../cmf/common-base/lib/mysql-connector-java-3.0.10-stable-bin.jar"/>
-    <pathelement location="${module.ncstm.basedir}/../../cmf/common-base/lib/dx.jar"/>
-    <pathelement location="${module.ncstm.basedir}/../../cmf/common-base/lib/jds.jar"/>
-    <pathelement location="${module.ncstm.basedir}/../../cmf/common-base/lib/dxml.jar"/>
-    <pathelement location="${module.ncstm.basedir}/../../sawdust/core/util/release/jar/sawdust-util-1.0.jar"/>
-    <pathelement location="${module.ncstm.basedir}/lib/fji.jar"/>
-    <pathelement location="${module.ncstm.basedir}/lib/sawdust.jar"/>
-    <pathelement location="${module.ncstm.basedir}/lib/TranscadMatrix.jar"/>
-    <pathelement location="${processFAF.output.dir}"/>
-    <pathelement location="${neldt.output.dir}"/>
+    <pathelement location="${module.jdk.classpath.ncstm}/lib/*.jar"/>
   </path>
   
   
@@ -48,7 +32,7 @@
     </dirset>
   </path>
 
-  <target name="compile.module.ncstm" depends="compile.module.common-base" description="compile module ncstm classes">
+  <target name="compile.module.ncstm" description="compile module ncstm classes">
     <mkdir dir="${ncstm.output.dir}"/>
     <javac destdir="${ncstm.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memoryMaximumSize="${compiler.max.memory}" fork="true" executable="${module.jdk.home.ncstm}/bin/javac">
       <compilerarg line="${compiler.args.ncstm}"/>
