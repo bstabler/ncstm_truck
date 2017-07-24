@@ -19,7 +19,7 @@ for [Apache Ant](http://ant.apache.org) are provided in the project.
   1. Install a java developer's kit (JDK) for Java 1.8+ ([link to download](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html)). 
   Instructions to do this are available from [Oracle](https://docs.oracle.com/javase/8/docs/technotes/guides/install/install_overview.html).
   2. Set your `JAVA_HOME` system environment variable to point to the JDK you
-  installed.
+  installed.  Alternatively, set the "jdk.home" property to the location of the JDK install in order to avoid conflicts with other Java related setups on the machine.
   3. Install [Apache Ant](http://ant.apache.org).
   4. Make sure the `ant` command is available on your command line.
   5. Clone this repository (`git clone https://github.com/pbsag/ncstm_truck`).
@@ -56,3 +56,9 @@ all:
 BUILD SUCCESSFUL
 Total time: 8 seconds 
 ```
+
+## Eclipse
+The program can also be compiled using ant from within Eclipse.  To do so:
+  1. Import the project into Eclipse via the .project file
+  2. Right click on build.xml and select Run As and then Ant Build. Run the "all" target
+  3. Make sure to set your `JAVA_HOME` system environment variable to point to the JDK you installed.  Alternatively, set the "jdk.home" property to the location of the JDK install in order to avoid conflicts with other Java related setups on the machine.

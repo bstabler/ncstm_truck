@@ -12,6 +12,12 @@ import org.apache.log4j.Logger;
 
 import java.util.ResourceBundle;
 
+import java.io.File;
+import java.nio.file.Files;
+import java.io.FileWriter;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.lang.String;
 
 public class ncstm {
 
@@ -22,6 +28,7 @@ public class ncstm {
 
         long startTime = System.currentTimeMillis();
         logger.info ("NCSTM started.");
+        
         ResourceBundle appRb = ncstmUtil.getResourceBundle(args[0]);
         int year = Integer.valueOf(args[1]);
         int modelType = Integer.valueOf(args[2]);
@@ -31,6 +38,16 @@ public class ncstm {
             System.exit(1);
         }
 
+        //write txt file at start and delete when done
+        File runningFile=new File("ncstm_truck_running_" + String.valueOf(modelType) + ".txt");
+        try {
+            BufferedWriter writer = new BufferedWriter(new FileWriter(runningFile));
+            writer.write("");
+            writer.close();
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+        
         switch (modelType) {
             case 1:
                 logger.info("Short-distance truck model");
@@ -57,6 +74,12 @@ public class ncstm {
             nm.run(year, modelType);
         }
 
+        //delete txt file at end
+        try {
+        	boolean result = Files.deleteIfExists(runningFile.toPath());
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
 
         logger.info("NCSTM completed.");
         float runTime = ncstmUtil.rounder(((System.currentTimeMillis() - startTime) / 60000), 1);

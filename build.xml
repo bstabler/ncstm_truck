@@ -30,6 +30,7 @@
 
   <!-- JDK definitions -->
   <property name="jdk.home" value="${env.JAVA_HOME}"/>
+  <!-- <property name="jdk.home" value="C:\Progra~1\Java\jdk1.8.0_25"/> -->
 
   <path id="jdk.classpath">
     <fileset dir="${jdk.home}">
